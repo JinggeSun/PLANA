@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+
+<body>
+    <div id="app">
+        <el-table :data="tableData" style="width: 100%" height="900">
+            <el-table-column fixed prop="rank" label="排名" width="60">
+            </el-table-column>
+            <el-table-column prop="name" label="球队" width="90">
+            </el-table-column>
+            <el-table-column prop="scene" label="场次" width="60">
+            </el-table-column>
+            <el-table-column prop="win" label="胜" width="60">
+            </el-table-column>
+            <el-table-column prop="flat" label="平" width="60">
+            </el-table-column>
+            <el-table-column prop="lose" label="负" width="60">
+            </el-table-column>
+            <el-table-column prop="goal" label="进球" width="60">
+            </el-table-column>
+            <el-table-column prop="fumble" label="失球" width="60">
+            </el-table-column>
+            <el-table-column prop="win_goal" label="净胜球" width="60">
+            </el-table-column>
+            <el-table-column prop="avg_goal" label="场均进球" width="60">
+            </el-table-column>
+            <el-table-column prop="avg_fumble" label="场均失球" width="60">
+            </el-table-column>
+            <el-table-column prop="avg_total" label="场均净胜" width="60">
+            </el-table-column>
+            <el-table-column prop="avg_integral" label="场均积分" width="60">
+            </el-table-column>
+            <el-table-column prop="integral" label="积分" width="60">
+            </el-table-column>
+        </el-table>
+    </div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--import axios-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                tableData: []
+            }
+        },
+        mounted() {
+            var _this = this;
+            _this.loaddata()
+        },
+        methods:{
+
+            loaddata() {
+                var that = this
+                axios({
+                    method: "get",
+                    url: "/list",
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                    withCredentials: true,
+                }).then((res) => {
+                   console.log(res)
+                   that.tableData = res.data.data
+                });
+            }
+        },
+    })
+</script>
+
+</html>
